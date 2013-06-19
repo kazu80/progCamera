@@ -62,6 +62,22 @@
 }
 
 - (IBAction)clickSepia:(id)sender {
+    // セピア色に変換
+    CIImage * ci = [[CIImage alloc] initWithImage:self.imageView.image];
+    CIFilter * filter = [CIFilter filterWithName:@"CISepiaTone"
+                         keysAndValues:kCIInputImageKey,
+                         ci,
+                         @"inputIntensity",
+                         [NSNumber numberWithFloat:0.8],
+                         nil];
+    CIContext * context = [CIContext contextWithOptions:nil];
+    CGImageRef cgimg = [context createCGImage:[filter outputImage] fromRect:[[filter outputImage] extent]];
+    UIImage * img = [UIImage imageWithCGImage:cgimg
+                     scale:1.0
+                                  orientation:UIImageOrientationUp];
+    CGImageRelease(cgimg);
+    self.imageView.image = img;
+    
 }
 
 - (IBAction)clickSave:(id)sender {

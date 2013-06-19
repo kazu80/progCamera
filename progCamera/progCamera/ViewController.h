@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+- (IBAction)clickCamera:(id)sender;
+- (IBAction)clickGray:(id)sender;
+- (IBAction)clickSepia:(id)sender;
+- (IBAction)clickSave:(id)sender;
 
 @end

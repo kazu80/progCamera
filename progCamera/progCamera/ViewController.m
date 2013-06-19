@@ -81,7 +81,31 @@
 }
 
 - (IBAction)clickSave:(id)sender {
+    // 保存
+    UIImage * image = self.imageView.image;
+//    UIImageWriteToSavedPhotosAlbum(image, self, @selector(targetImage:didFinishedSaveingWithError:contextInfo:), nil);
+    
+    UIImageWriteToSavedPhotosAlbum(image,
+                                   self,
+                                   @selector(targetImage:didFinishedSaveingWithError:contextInfo:),
+                                   nil);
 }
+
+- (void)targetImage:(UIImage*)image didFinishedSaveingWithError:(NSError*)error contextInfo:(void*)context
+{
+    if ( error) {
+        // 保存に失敗
+        UIAlertView * alert = [[UIAlertView alloc]
+                               initWithTitle:@"" message:@"保存に失敗しました" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        // 保存に成功
+        UIAlertView * alert = [[UIAlertView alloc]
+                               initWithTitle:@"" message:@"保存しました" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {

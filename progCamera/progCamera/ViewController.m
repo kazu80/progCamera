@@ -39,6 +39,26 @@
 }
 
 - (IBAction)clickGray:(id)sender {
+    // 白黒
+    // 
+    CIImage * ci = [[CIImage alloc] initWithImage:self.imageView.image];
+    CIFilter * filter = [CIFilter filterWithName:@"CIColorMonochrome" keysAndValues:kCIInputImageKey,
+                         ci,
+                         @"inputColor",
+                         [CIColor colorWithRed:0.75 green:0.75 blue:0.75],
+                         @"inputIntensity",
+                         [NSNumber numberWithFloat:1.0],
+                         nil];
+    CIContext * context = [CIContext contextWithOptions:nil];
+    CGImageRef cgimg = [context createCGImage:[filter outputImage] fromRect:[[filter outputImage] extent]];
+    UIImage * img = [UIImage imageWithCGImage:cgimg
+                     scale:1.0
+                                  orientation:UIImageOrientationUp];
+    CGImageRelease(cgimg);
+    self.imageView.image = img;
+    
+                         
+    
 }
 
 - (IBAction)clickSepia:(id)sender {
